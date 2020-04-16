@@ -1,0 +1,23 @@
+{
+  "name": "nuxt-ckeditor-example",
+  "version": "1.0.0",
+  "description": "Test code to integrate nuxt and ckeditor (rich text editor)",
+  "author": "Justin Kwik",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^18.0.0",
+    "@ckeditor/ckeditor5-font": "^18.0.0",
+    "@ckeditor/ckeditor5-vue": "^1.0.1",
+    "@nuxtjs/axios": "^5.3.6",
+    "nuxt": "^2.0.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/vuetify": "^1.0.0"
+  }
+}
