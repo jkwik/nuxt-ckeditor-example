@@ -24,14 +24,14 @@
   let CKEditor
 
   if (process.client) {
-    ClassicEditor = require('@ckeditor/ckeditor5-build-classic')
+    ClassicEditor = require('~/ckeditor5/build/ckeditor')
     CKEditor = require('@ckeditor/ckeditor5-vue')
   } else {
     CKEditor = { component : {template:'<div></div>'}}
   }
 
   export default {
-    components : { 
+    components : {
       ckeditor: CKEditor.component
     },
     data() {
@@ -39,10 +39,55 @@
           editor: ClassicEditor,
           editorData: '<p>Content of the editor.</p>',
           editorConfig: {
-            // TODO: Decide on whether we should support image uploads through creating a custom adapter
-            // https://ckeditor.com/docs/ckeditor5/latest/framework/guides/deep-dive/upload-adapter.html
-            // or adding images as base64 encoded
-            // https://ckeditor.com/docs/ckeditor5/latest/features/image-upload/base64-upload-adapter.html
+            toolbar: {
+              items: [
+                'heading',
+                '|',
+                'bold',
+                'italic',
+                'link',
+                'bulletedList',
+                'numberedList',
+                '|',
+                'indent',
+                'outdent',
+                '|',
+                'imageUpload',
+                'blockQuote',
+                'insertTable',
+                'mediaEmbed',
+                'undo',
+                'redo',
+                'alignment',
+                'fontBackgroundColor',
+                'fontColor',
+                'fontSize',
+                'fontFamily',
+                'highlight',
+                'horizontalLine',
+                'imageInsert',
+                'strikethrough',
+                'specialCharacters',
+                'underline'
+              ]
+            },
+            language: 'en',
+            image: {
+              toolbar: [
+                'imageTextAlternative',
+                'imageStyle:full',
+                'imageStyle:side'
+              ]
+            },
+            table: {
+              contentToolbar: [
+                'tableColumn',
+                'tableRow',
+                'mergeTableCells',
+                'tableCellProperties',
+                'tableProperties'
+              ]
+            },
           },
       };
     },
