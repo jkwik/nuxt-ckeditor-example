@@ -19,6 +19,7 @@
 
 <script>
   import axios from 'axios';
+  axios.withCredentials = true;
 
   let ClassicEditor
   let CKEditor
@@ -30,6 +31,29 @@
     CKEditor = { component : {template:'<div></div>'}}
   }
 
+  // TODO: Remove below authentication, this is for testing purposes
+  axios.post('https://apd-be-prod.smrxbtsdpc.us-west-1.elasticbeanstalk.com/query', {
+    query: `mutation LoginAdmin {
+      loginUser(input: {
+        email: "kwik@wisc.edu"
+        password: "fakepassword"
+      }) {
+        id
+        first_name
+        last_name
+        email
+        role
+        access_token
+      }
+    }`
+  }, {
+    withCredentials: true,
+  }).then(result => {
+    console.log(result.data)
+  }).catch(error => {
+    console.log(error)
+  })
+
   export default {
     components : {
       ckeditor: CKEditor.component
@@ -37,8 +61,14 @@
     data() {
       return {
           editor: ClassicEditor,
+          // TODO: For sending emails this needs to be empty.
+          // For product descriptions this needs to be the existing product description.
           editorData: '<p>Content of the editor.</p>',
           editorConfig: {
+            simpleUpload: {
+              uploadUrl: 'https://apd-be-prod.smrxbtsdpc.us-west-1.elasticbeanstalk.com/asset',
+              withCredentials: true,
+            },
             toolbar: {
               items: [
                 'heading',
@@ -94,7 +124,9 @@
     methods: {
       submit() {
         console.log(this.editorData)
-        axios.post('http://localhost:8080/query', {
+        // TODO: Below mutation is just for creating product, obviously, must add
+        // "sendEmail" mutation if this editor is being used for sending emails
+        axios.post('https://apd-be-prod.smrxbtsdpc.us-west-1.elasticbeanstalk.com/query', {
           query: `mutation CreateProduct {
             createProduct(input: {
               name: "Test Product With Rich Text"
